@@ -4,25 +4,17 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
-<<<<<<< HEAD
     "mongoose": "^6.2.0",
     "nodemon": "^2.0.15"
-=======
-    "mongoose": "^6.2.0"
->>>>>>> bc879d9c3a9a864b9f30e6ad389596321e522875
   },
   "name": "checkinplus",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "start-dev": "nodemon index.js"
-=======
-    "test": "echo \"Error: no test specified\" && exit 1"
->>>>>>> bc879d9c3a9a864b9f30e6ad389596321e522875
   },
   "repository": {
     "type": "git",
@@ -32,8 +24,4 @@
   "author": "",
   "license": "ISC",
   "description": ""
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> bc879d9c3a9a864b9f30e6ad389596321e522875
