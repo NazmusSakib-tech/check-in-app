@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost:27017/checkin").then(() => {
 const app = express();
 app.use(express.json());
 
-app.use('/user', memberHandler);
+app.use('/member', memberHandler);
 app.use('/myteams', teamHandler);
 
 app.get('/', (req, res) => {
