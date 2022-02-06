@@ -3,7 +3,11 @@ const router = express.Router();
 const Team = require('../schemas/TeamSchema')
 
 
-router.get('/', async (req, res) => {
+// Get my teams
+router.get('/:mobile', async (req, res) => {
+    const myTeams = await Team.find({ 'teamMembers': { $elemMatch: { mobile: req.params.mobile } } })
+    res.send(myTeams)
+
 })
 
 //Create New Team
