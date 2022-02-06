@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Team = require('../schemas/TeamSchema')
+const Team = require('../schemas/teamSchema')
 
 
 // Get my teams
