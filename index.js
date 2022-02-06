@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userHandler = require('./routeHandler/userHandler');
+const teamHandler = require('./routeHandler/teamHandler');
 
 // db connection
 mongoose.connect("mongodb://localhost/checkin").then(() => {
@@ -11,5 +12,12 @@ const app = express();
 app.use(express.json());
 
 app.use('/user', userHandler);
+app.use('/myteam', teamHandler);
 
-app.listen(5000, () => console.log("server running on port: 5000"))
+app.get('/', (req, res) => {
+    res.send("Hello")
+})
+
+app.listen(5000, () => {
+    console.log("server running on port: 5000")
+})
