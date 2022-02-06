@@ -17,14 +17,20 @@ router.post('/signup', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const user = await User.findOne({ mobile: req.body.mobile });
-    console.log(user);
-    const isValid = await bcrypt.compare(req.body.pinCode, user.pinCode);
-    if (isValid) {
-        // DO What you want to do after successfull login
+    try {
+        const user = await User.findOne({ mobile: req.body.mobile });
+        console.log(user);
+        const isValid = await bcrypt.compare(req.body.pinCode, user.pinCode);
+        if (isValid) {
+            // Please update the activity of the user. you get the activity in the req.body
 
-        res.send(req.body)
-    } else {
+
+
+            res.send(user)
+        } else {
+            res.send("Authentication failed");
+        }
+    } catch (error) {
         res.send("Authentication failed");
     }
 
