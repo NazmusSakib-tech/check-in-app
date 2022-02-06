@@ -3,6 +3,11 @@ const router = express.Router();
 const Team = require('../schemas/teamSchema')
 
 
+// Get team members track
+router.get('/teamtrack', async (req, res) => {
+    res.send("team track");
+})
+
 // Get my teams
 router.get('/:mobile', async (req, res) => {
     const myTeams = await Team.find({ 'teamMembers': { $elemMatch: { mobile: req.params.mobile } } })
