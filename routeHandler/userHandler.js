@@ -39,8 +39,9 @@ router.post('/login', async (req, res) => {
                 { mobile: req.body.mobile },
                 { $push: { activity: newActivity } }
             )
+            // console.log(result);
 
-            res.send(user)
+            res.send(result)
         } else {
             res.send("Authentication failed");
         }
