@@ -4,7 +4,7 @@ const userHandler = require('./routeHandler/userHandler');
 const teamHandler = require('./routeHandler/teamHandler');
 
 // db connection
-mongoose.connect("mongodb://localhost/checkin").then(() => {
+mongoose.connect("mongodb://localhost:27017/checkin").then(() => {
     console.log("db connection established");
 }).catch(err => console.log("not connected"));
 
@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
     res.send("Hello")
 })
 
-app.listen(5000, () => {
+app.listen(5000, '192.168.68.129', () => {
     console.log("server running on port: 5000")
 })

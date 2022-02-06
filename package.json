@@ -4,6 +4,24 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
-    "mongoose": "^6.2.0"
-  }
+    "mongoose": "^6.2.0",
+    "nodemon": "^2.0.15"
+  },
+  "name": "checkinplus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start-dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://eon.xp-dev.com/git/checkInPlus"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
