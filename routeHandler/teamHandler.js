@@ -1,12 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const Member = require('../schemas/memberSchema');
+const Team = require('../schemas/TeamSchema')
 
+
+router.get('/', async (req, res) => {
+})
+
+//Create New Team
 router.post('/createteam', async (req, res) => {
-    const { teamCode, teamName, teamDescription, mobile } = req.body;
-    // const member = await Member.findOne({ mobile })
-
-    res.send("member")
+    try {
+        const newTeam = new Team(req.body)
+        const crateTeam = await newTeam.save();
+        res.status(201).send(crateTeam);
+    } catch (err) {
+        res.status(500).send(err);
+    }
 })
 
 
