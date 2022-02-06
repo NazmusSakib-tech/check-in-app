@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const userHandler = require('./routeHandler/userHandler');
+const memberHandler = require('./routeHandler/memberHandler');
 const teamHandler = require('./routeHandler/teamHandler');
 
 // db connection
@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost/checkin").then(() => {
 const app = express();
 app.use(express.json());
 
-app.use('/user', userHandler);
+app.use('/user', memberHandler);
 app.use('/myteams', teamHandler);
 
 app.get('/', (req, res) => {
