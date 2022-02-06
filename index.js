@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/user', userHandler);
-app.use('/myteam', teamHandler);
+app.use('/myteams', teamHandler);
 
 app.get('/', (req, res) => {
     res.send("Hello")

@@ -24,9 +24,24 @@ router.post('/login', async (req, res) => {
         if (isValid) {
             // Please update the activity of the user. you get the activity in the req.body
 
+            console.log(req.body);
+            const { date, time, lat, long, pedoCount, batteryStatus } = req.body;
+            const newActivity = {
+                activityType: "loggedin",
+                date,
+                time,
+                lat,
+                long,
+                pedoCount,
+                batteryStatus,
+            }
+            const result = await User.updateOne(
+                { mobile: req.body.mobile },
+                { $push: { activity: newActivity } }
+            )
+            // console.log(result);
 
-
-            res.send(user)
+            res.send(result)
         } else {
             res.send("Authentication failed");
         }
