@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const memberSchema = mongoose.Schema({
     name: String,
     mobile: String, // unique
     pinCode: String,
@@ -24,6 +24,6 @@ const userSchema = mongoose.Schema({
     ]
 });
 
-const User = mongoose.model('User', userSchema);
+const Member = mongoose.model('Member', memberSchema);
 
-module.exports = User;
+module.exports = Member;
