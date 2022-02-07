@@ -1,17 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const Team = require('../schemas/teamSchema')
+const Member = require('../schemas/memberSchema');
 
 
-// Get team members track
-router.get('/teamtrack', async (req, res) => {
-    res.send("team track");
+// Get team members list
+router.get('/teamtrack/memberlist/:teamcode', async (req, res) => {
+    // res.send(req.params.teamcode)
+    try {
+        const result = await Team.findOne({ teamCode: req.params.teamcode })
+        const teamMembers = result.teamMembers;
+        res.send(teamMembers);
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+// Get team members map/activity
+router.get('/membertrack/map/:mobile', async (req, res) => {
+    try {
+        const result = await Member.findOne({ mobile: req.params.mobile })
+        res.send(result);
+    } catch (error) {
+        res.send(error)
+    }
 })
 
 // Get my teams
 router.get('/:mobile', async (req, res) => {
-    const myTeams = await Team.find({ 'teamMembers': { $elemMatch: { mobile: req.params.mobile } } })
-    res.send(myTeams)
+    try {
+        const myTeams = await Team.find({ 'teamMembers': { $elemMatch: { mobile: req.params.mobile } } })
+        res.send(myTeams)
+    } catch (error) {
+        res.send(error)
+    }
 
 })
 
