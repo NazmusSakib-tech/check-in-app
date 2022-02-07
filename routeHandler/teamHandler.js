@@ -3,10 +3,6 @@ const router = express.Router();
 const Team = require('../schemas/teamSchema')
 
 
-<<<<<<< HEAD
-// router.get('/', async (req, res) => {
-// })
-=======
 // Get team members track
 router.get('/teamtrack', async (req, res) => {
     res.send("team track");
@@ -18,9 +14,8 @@ router.get('/:mobile', async (req, res) => {
     res.send(myTeams)
 
 })
->>>>>>> 0fc4e8340698dca8750d1308a086960032719c6d
 
-//Create New Team
+//********Create New Team***********/
 router.post('/createteam', async (req, res) => {
     try {
         const newTeam = new Team(req.body)
@@ -35,20 +30,35 @@ router.post('/createteam', async (req, res) => {
 //await Team.find({ 'teamMembers': { $elemMatch: { mobile: mobile } } }
 
 
-//Join MyTeam 
-router.patch('/jointeam/:id', async (req, res) => {
+/**********Join In a Team**********/
+router.patch('/jointeam', async (req, res) => {
     try {
 
-        const _id = req.params.id;
+        const teamCode = req.body.teamCode;
         console.log(teamCode);
-        const desairedTeam = await Team.findByIdAndUpdate(_id, { $push: { teamMembers: req.body } })
-        console.log(req.body)
-        res.status(201).send(desairedTeam, "join team");
+        const desairedTeam = await Team.updateOne({ teamCode: teamCode }, { $push: { teamMembers: { mobile: req.body.mobile, memberRole: 'pending' } } })
+        res.status(201).send(desairedTeam);
 
     } catch (err) {
         res.status(500).send(err);
     }
 })
 
+/*********Approved team member in a team**********/
+
+router.patch('/memberApproved', async (req, res) => {
+    try {
+
+        const teamCode = req.body.teamCode;
+        const mobile = req.body.mobile;
+        console.log(teamCode, mobile);
+
+        const desairedTeam = await Team.updateOne({ teamCode: teamCode, 'teamMembers': { $elemMatch: { mobile: mobile } } }, { $set: { "teamMembers.$.memberRole": "member" } })
+        res.status(201).send(desairedTeam);
+
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
 
 module.exports = router
