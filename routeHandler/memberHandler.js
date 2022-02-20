@@ -3,18 +3,60 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 
 const Member = require('../schemas/memberSchema');
+const { redirect } = require('express/lib/response');
 
 router.post('/signup', async (req, res) => {
+    // console.log(req.body);
+    const { mobile, syncCode } = req.body;
     try {
-        const newMember = new Member(req.body);
-        const hashedPassword = await bcrypt.hash(req.body.pinCode, 10);
-        newMember.pinCode = hashedPassword;
-        newMember.save();
-        res.send(newMember)
+        const member = await Member.findOne({ mobile: mobile });
+        if (!member) {
+            const isSyncExist = await Member.findOne({ syncCode: syncCode });
+            if (!isSyncExist) {
+                const newMember = new Member(req.body);
+                const hashedPassword = await bcrypt.hash(req.body.pinCode, 10);
+                newMember.pinCode = hashedPassword;
+                const result = await newMember.save();
+                res.send(result);
+            } else {
+                res.status(501).send("Sync exist");
+            }
+        } else {
+            res.status(501).send("Already exist");
+        }
+
+
     } catch (error) {
-        res.send("Not saved. Please try again");
+        res.status(501).send(error);
     }
 })
+
+// change mobile and member update 
+router.post('/reregistration', async (req, res) => {
+
+    const filter = { mobile: req.body.mobile };
+    const update = req.body;
+    try {
+
+
+        const updateMember = await Member.findOneAndUpdate(filter, update, {
+            new: true
+        });
+        const hashedPassword = await bcrypt.hash(req.body.pinCode, 10);
+        updateMember.pinCode = hashedPassword;
+        const result = await updateMember.save();
+        res.status(200).send(result);
+
+    } catch (error) {
+        res.status(404).json({ message: "user not found" });
+    }
+})
+
+
+
+
+
+
 
 router.post('/login', async (req, res) => {
     try {

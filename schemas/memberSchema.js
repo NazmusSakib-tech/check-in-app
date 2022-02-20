@@ -1,29 +1,44 @@
 const mongoose = require('mongoose');
+const moment = require('moment-timezone');
+const dateThailand = moment.tz(Date.now(), "Asia/Bangkok");
 
-const memberSchema = mongoose.Schema({
+
+const memberSchema = new mongoose.Schema({
     name: String,
-    mobile: String, // unique
+    mobile: {
+        type: String,
+
+    }, // unique
     pinCode: String,
-    syncCode: String, // unique
-    deviceSerial: String,
-    manufacture: String,
-    modelNumber: String,
+    syncCode: {
+        type: String,
+
+    }, // unique
+    deviceSerial: {
+        type: String,
+
+    },
+    manufacture: {
+        type: String,
+
+    },
+    modelNumber: {
+        type: String,
+
+    },
     activity: [
         {
-            activityType: {
-                type: String,
-                enum: ["loggedin", "loggedout", "ping"]
-            },
+            activityType: String,
             lat: String,
             long: String,
             pedoCount: Number,
             batteryStatus: String,
-            date: String,
+            date: { type: Date, default: dateThailand },
             time: String,
         }
     ]
 });
 
-const Member = mongoose.model('Member', memberSchema);
+const Member = new mongoose.model('Member', memberSchema);
 
 module.exports = Member;
